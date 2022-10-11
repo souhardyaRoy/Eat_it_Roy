@@ -1,5 +1,7 @@
+
 import express, { Router } from 'express';
 import { _userController } from './user_registration.controller';
+import { createValidator } from './user_registration.validator';
 
 const user_registration_router: Router = express.Router();
 
@@ -19,7 +21,7 @@ const user_registration_router: Router = express.Router();
 
 user_registration_router
     .get('/all', (req, res) => _userController.find(res, {}))
-    .post('/', (req, res) => _userController.create(res, req.body))
+    .post('/',createValidator, (req, res) => _userController.create(res, req.body))
     .put('/:id', (req, res) => _userController.update(res, req.params.id, req.body))
     .delete('/:id', (req, res) => _userController.delete(res, req.params.id))
 
